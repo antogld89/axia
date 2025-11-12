@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ΑΞΙΑ - Développeur Freelance Lyon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <script type="text/babel">
+        const { useState } = React;
+        
+        // Icônes Lucide simplifiées
+        const Code = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>;
+        const Palette = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>;
+        const Zap = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>;
+        const Mail = () => <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>;
+        const MapPin = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>;
+        const GraduationCap = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>;
+        const Briefcase = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>;
+
+        function AxiaSite() {
+          const [activeSection, setActiveSection] = useState('accueil');
+
+          const scrollToSection = (section) => {
+            setActiveSection(section);
+            document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
+          };
+
+          return (
+            <div className="min-h-screen bg-white">
+              {/* Navigation */}
+              <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+                <div className="max-w-6xl mx-auto px-6 py-4">
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-3xl font-bold text-gray-800">ΑΞΙΑ</h1>
+                    <div className="flex gap-8">
+                      {['Accueil', 'Services', 'À propos', 'Contact'].map((item) => (
+                        <button
+                          key={item}
+                          onClick={() => scrollToSection(item.toLowerCase().replace('à propos', 'apropos'))}
+                          className="text-gray-600 hover:text-green-600 transition-colors"
+                        >
+                          {item}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </nav>
+
+              {/* Hero Section */}
+              <section id="accueil" className="pt-32 pb-20 px-6 bg-gradient-to-b from-green-50 to-white">
+                <div className="max-w-6xl mx-auto text-center">
+                  <div className="mb-6">
+                  </div>
+                  <h2 className="text-6xl font-bold text-gray-900 mb-6">
+                    ΑΞΙΑ
+                  </h2>
+                  <br></br>
+                  <br></br>
+                  <br></br>
+                  <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                    Développement web sur mesure pour vos projets digitaux
+                  </p>
+
+                  <button
+                    onClick={() => scrollToSection('contact')}
+                    className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium transition-colors"
+                  >
+                    Démarrer un projet
+                  </button>
+                </div>
+              </section>
+
+              {/* Services */}
+              <section id="services" className="py-20 px-6 bg-white">
+                <div className="max-w-6xl mx-auto">
+                  <h3 className="text-3xl font-bold text-gray-900 mb-4 text-center">Services</h3>
+                  <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+                    Des solutions adaptées à vos besoins
+                  </p>
+                  
+                  <div className="grid md:grid-cols-3 gap-8">
+                    <div className="p-8 bg-green-50 rounded-xl hover:shadow-lg transition-shadow">
+                      <div className="w-12 h-12 bg-green-200 rounded-lg flex items-center justify-center mb-4">
+                        <Code />
+                      </div>
+                      <h4 className="text-xl font-semibold text-gray-900 mb-3">Développement Web</h4>
+                      <p className="text-gray-600">
+                        Sites vitrine, applications web, e-commerce. Développement avec les technologies modernes (React, Node.js, etc.).
+                      </p>
+                    </div>
+
+                    <div className="p-8 bg-green-50 rounded-xl hover:shadow-lg transition-shadow">
+                      <div className="w-12 h-12 bg-green-200 rounded-lg flex items-center justify-center mb-4">
+                        <Palette />
+                      </div>
+                      <h4 className="text-xl font-semibold text-gray-900 mb-3">Design</h4>
+                      <p className="text-gray-600">
+                        Interfaces intuitives et esthétiques, centrées sur l'expérience utilisateur et l'accessibilité.
+                      </p>
+                    </div>
+
+                    <div className="p-8 bg-green-50 rounded-xl hover:shadow-lg transition-shadow">
+                      <div className="w-12 h-12 bg-green-200 rounded-lg flex items-center justify-center mb-4">
+                        <Zap />
+                      </div>
+                      <h4 className="text-xl font-semibold text-gray-900 mb-3">Optimisation</h4>
+                      <p className="text-gray-600">
+                        Amélioration des performances, référencement SEO, et maintenance de vos projets existants.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* À propos */}
+              <section id="apropos" className="py-20 px-6 bg-green-50">
+                <div className="max-w-6xl mx-auto">
+                  <div className="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                      <h3 className="text-3xl font-bold text-gray-900 mb-6">À propos</h3>
+                      <p className="text-gray-600 mb-4">
+                        Développeur freelance basé à Lyon, je suis actuellement en Bachelor Informatique 
+                        et je me spécialise dans la création d'applications web modernes et performantes.
+                      </p>
+                      <p className="text-gray-600 mb-6">
+                        Passionné par les nouvelles technologies et le design, je m'engage à livrer 
+                        des solutions de qualité qui répondent précisément aux besoins de mes clients.
+                      </p>
+                      
+                      <div className="space-y-4">
+                        <div className="flex items-start gap-3">
+                          <GraduationCap />
+                          <div>
+                            <p className="font-medium text-gray-900">Formation</p>
+                            <p className="text-gray-600">Bachelor Informatique</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <MapPin />
+                          <div>
+                            <p className="font-medium text-gray-900">Localisation</p>
+                            <p className="text-gray-600">Lyon, France</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <Briefcase />
+                          <div>
+                            <p className="font-medium text-gray-900">Statut</p>
+                            <p className="text-gray-600">Micro-entreprise</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-white p-8 rounded-xl shadow-md">
+                      <h4 className="text-xl font-semibold text-gray-900 mb-4">Compétences</h4>
+                      <div className="space-y-3">
+                        {[
+                          { name: 'React & JavaScript', level: 90 },
+                          { name: 'HTML & CSS', level: 95 },
+                          { name: 'Node.js & Backend', level: 70 },
+                          { name: 'Design', level: 95 },
+                        ].map((skill) => (
+                          <div key={skill.name}>
+                            <div className="flex justify-between mb-1">
+                              <span className="text-sm font-medium text-gray-700">{skill.name}</span>
+                              <span className="text-sm text-gray-500">{skill.level}%</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2">
+                              <div
+                                className="bg-green-600 h-2 rounded-full transition-all"
+                                style={{ width: `${skill.level}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Contact */}
+              <section id="contact" className="py-20 px-6 bg-white">
+                <div className="max-w-4xl mx-auto text-center">
+                  <h3 className="text-3xl font-bold text-gray-900 mb-4">Contactez-moi</h3>
+                  <p className="text-gray-600 mb-12">
+                    Vous avez un projet en tête ? Discutons-en ensemble
+                  </p>
+
+                  <div className="bg-green-50 p-12 rounded-xl">
+                    <div className="max-w-md mx-auto">
+                      <div className="mb-8">
+                        <div className="flex justify-center mb-4"><Mail /></div>
+                        <p> antoningalland89@gmail.com </p>
+                        <br></br>
+                        <p> 07 87 23 61 48 </p>
+                      </div>
+                      
+                      <div className="border-t border-green-200 pt-8">
+                        <p className="text-gray-600 mb-4">
+                          Réponse sous 24h • Devis gratuit • Basé à Lyon
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Footer */}
+              <footer className="bg-gray-50 py-8 px-6">
+                <div className="max-w-6xl mx-auto text-center">
+                  <p className="text-2xl font-bold text-gray-800 mb-2">ΑΞΙΑ</p>
+                  <p className="text-gray-600 text-sm">
+                    Micro-entreprise • Développeur Freelance • Lyon, France
+                  </p>
+                  <p className="text-gray-500 text-sm mt-4">
+                    © 2024 ΑΞΙΑ. Tous droits réservés.
+                  </p>
+                </div>
+              </footer>
+            </div>
+          );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<AxiaSite />);
+    </script>
+</body>
+</html>
