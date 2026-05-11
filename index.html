@@ -2,277 +2,944 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PretioTech - Développeur Freelance Lyon</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Bienvenue</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Orbitron:wght@900&family=Courier+Prime&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: 'Courier Prime', monospace;
+            background: #0a0a15;
+        }
+
+        .scene-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sky {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(to bottom, #0a0a15 0%, #1a1a35 50%, #2a2a45 100%);
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+
+        .moon {
+            position: absolute;
+            top: 80px;
+            right: 150px;
+            width: 100px;
+            height: 100px;
+            background: #f4f1de;
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(244, 241, 222, 0.5);
+            animation: moonGlow 4s infinite ease-in-out;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .moon:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 100px rgba(244, 241, 222, 0.9);
+            background: #fff8dc;
+        }
+
+        .moon::before {
+            content: 'CV';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            font-weight: 900;
+            color: #1a1a35;
+            opacity: 1;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .moon:hover::before {
+            font-size: 24px;
+            color: #000;
+        }
+
+        @keyframes moonGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 60px rgba(244, 241, 222, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 100px rgba(244, 241, 222, 0.7);
+            }
+        }
+
+
+        .road {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30%;
+            background: linear-gradient(to bottom, #2a2a35 0%, #1a1a25 100%);
+            border-top: 3px solid #3a3a45;
+        }
+
+        .road-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(to right,
+                    transparent 0px,
+                    transparent 30px,
+                    #ffd700 30px,
+                    #ffd700 60px);
+            animation: roadMove 2s linear infinite;
+        }
+
+        @keyframes roadMove {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-60px);
+            }
+        }
+
+        .building {
+            position: absolute;
+            bottom: 30%;
+            background: #1a1a2e;
+            border-top: 2px solid #2a2a3e;
+        }
+
+        .building-1 {
+            left: 5%;
+            width: 150px;
+            height: 200px;
+        }
+
+        .building-2 {
+            right: 10%;
+            width: 180px;
+            height: 250px;
+        }
+
+        .window {
+            position: absolute;
+            width: 15px;
+            height: 20px;
+            background: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            animation: windowFlicker 5s infinite ease-in-out;
+        }
+
+        @keyframes windowFlicker {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+
+        .bus-stop {
+            position: absolute;
+            bottom: 30%;
+            right: 30%;
+            width: 200px;
+            height: 250px;
+        }
+
+        .bus-shelter {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+        }
+
+        .shelter-roof {
+            position: absolute;
+            top: 0;
+            left: -10px;
+            width: 220px;
+            height: 30px;
+            background: #c0392b;
+            border-radius: 5px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .shelter-pole {
+            position: absolute;
+            top: 30px;
+            left: 10px;
+            width: 8px;
+            height: 170px;
+            background: #7f8c8d;
+        }
+
+        .shelter-pole-2 {
+            left: 182px;
+        }
+
+        .shelter-back {
+            position: absolute;
+            top: 30px;
+            left: 10px;
+            width: 180px;
+            height: 150px;
+            background: rgba(52, 73, 94, 0.3);
+            border: 3px solid #34495e;
+            backdrop-filter: blur(2px);
+        }
+
+        .bus-poster {
+            position: absolute;
+            top: 50px;
+            left: 30px;
+            width: 140px;
+            height: 100px;
+            background: linear-gradient(135deg, #00ffff 0%, #0099ff 100%);
+            border: 4px solid #ffffff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+            animation: posterPulse 2s infinite ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 900;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .bus-poster:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 1);
+        }
+
+        @keyframes posterPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+            }
+
+            50% {
+                box-shadow: 0 0 50px rgba(0, 255, 255, 0.9);
+            }
+        }
+
+
+        .door-container {
+            position: absolute;
+            bottom: 30%;
+            left: 25%;
+            width: 120px;
+            height: 200px;
+            cursor: pointer;
+        }
+
+        .door-frame {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 120px;
+            height: 200px;
+            background: #2c3e50;
+            border: 4px solid #1a252f;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .door {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 110px;
+            height: 190px;
+            background: linear-gradient(to right, #34495e 0%, #2c3e50 100%);
+            border: 3px solid #1a252f;
+            border-radius: 5px 5px 0 0;
+            transform-origin: left center;
+            transition: transform 0.8s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .door-container:hover .door {
+            transform: perspective(1000px) rotateY(-25deg);
+        }
+
+        .door-container.door-open .door {
+            transform: perspective(1000px) rotateY(-80deg);
+        }
+
+        .door-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            font-weight: 900;
+            color: rgba(255, 215, 0, 0.85);
+            text-align: center;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+            line-height: 1.3;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .door-knob {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            width: 12px;
+            height: 12px;
+            background: #f39c12;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(243, 156, 18, 0.5);
+        }
+
+        .door-light {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #ffff00 0%, #ffd700 30%, rgba(255, 215, 0, 0.5) 60%, transparent 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: strongLightGlow 1.5s infinite ease-in-out;
+            box-shadow: 0 0 80px rgba(255, 255, 0, 1),
+                0 0 120px rgba(255, 215, 0, 0.8),
+                0 0 160px rgba(255, 215, 0, 0.6);
+        }
+
+        .door-light::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 255, 0, 1),
+                0 0 60px rgba(255, 255, 0, 0.8);
+        }
+
+        .door-light::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 15px;
+            height: 15px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+        }
+
+        @keyframes strongLightGlow {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: translateX(-50%) scale(1.1);
+            }
+        }
+
+        .light-beam {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 200px;
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 0, 0.5) 0%,
+                    rgba(255, 215, 0, 0.3) 30%,
+                    rgba(255, 215, 0, 0.15) 60%,
+                    transparent 100%);
+            clip-path: polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%);
+            animation: strongBeamFlicker 2s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes strongBeamFlicker {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .door-container:hover .light-beam {
+            background: linear-gradient(to bottom,
+                    gold,
+                    gold,
+                    gold,
+                    transparent 100%);
+        }
+
+        .door-container:hover .door-light {
+            animation: strongLightGlow 0.8s infinite ease-in-out;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            animation: modalFadeIn 0.4s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0a0a15 0%, #1a1a35 100%);
+            border: 3px solid #00ffff;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 0 60px rgba(0, 255, 255, 0.5);
+            animation: modalSlideIn 0.5s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: scale(0.7) translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 40px;
+            font-weight: bold;
+            color: #00ffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+            background: rgba(0, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .modal-content h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #00ffff, #0099ff, #00ffff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientMove 3s ease infinite;
+        }
+
+        @keyframes gradientMove {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .modal-section {
+            background: rgba(0, 255, 255, 0.05);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+
+        .modal-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            color: #00ffff;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .modal-section p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #e0e0e0;
+            margin-bottom: 12px;
+        }
+
+        .modal-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .modal-feature {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 255, 255, 0.08);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-feature:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 255, 255, 0.5);
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .modal-feature-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .modal-feature h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: #00ffff;
+            margin-bottom: 8px;
+        }
+
+        .modal-feature p {
+            font-size: 13px;
+            color: #c0c0c0;
+        }
+
+        .modal-cta {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .modal-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%);
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(255, 0, 255, 0.8);
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #00ffff, #0099ff);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #00ffff, #00ccff);
+        }
+
+        /* ── BIENVENUE remonté ── */
+        .welcome-text {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 80px;
+            font-weight: 900;
+            color: transparent;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: welcomeAnimation 3s ease-in-out infinite, gradientShift 4s ease infinite;
+            text-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+            z-index: 100;
+            text-align: center;
+            letter-spacing: 5px;
+        }
+
+        .signature {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 28px;
+            color: gold;
+            letter-spacing: 2px;
+            transform: rotate(-5deg);
+            z-index: 50;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        @keyframes welcomeAnimation {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.1) rotate(2deg);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .welcome-text {
+                font-size: 40px;
+            }
+
+            .bus-stop {
+                right: 20%;
+                transform: scale(0.8);
+            }
+
+            .door-container {
+                left: 15%;
+                transform: scale(0.8);
+            }
+        }
+
+        .streetlight {
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            width: 10px;
+            height: 180px;
+        }
+
+        .light-post {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 10px;
+            height: 180px;
+            background: linear-gradient(to bottom, #555 0%, #333 100%);
+        }
+
+        .light-head {
+            position: absolute;
+            top: -20px;
+            left: -15px;
+            width: 40px;
+            height: 20px;
+            background: #444;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .streetlight-glow {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+    </style>
 </head>
 
 <body>
-  <div id="root"></div>
-
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-  <script type="text/babel">
-    const { useState } = React;
-
-    // Icônes Lucide simplifiées
-    const Code = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>;
-    const Palette = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg>;
-    const Zap = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>;
-    const Mail = () => <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>;
-    const MapPin = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>;
-    const GraduationCap = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>;
-    const Briefcase = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>;
-
-    function AxiaSite() {
-      const [activeSection, setActiveSection] = useState('accueil');
-
-      const scrollToSection = (section) => {
-        setActiveSection(section);
-        document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
-      };
-
-      return (
-        <div className="min-h-screen bg-white">
-          {/* Navigation */}
-          <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
-            <div className="max-w-6xl mx-auto px-6 py-4">
-              <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold text-gray-800">PT</h1>
-                <div className="flex gap-5">
-                  {['Accueil', 'Services', 'À propos', 'Contact'].map((item) => (
-                    <button
-                      key={item}
-                      onClick={() => scrollToSection(item.toLowerCase().replace('à propos', 'apropos'))}
-                      className="text-gray-600 hover:text-green-600 transition-colors"
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </nav>
-
-          {/* Hero Section */}
-          <section id="accueil" className="pt-32 pb-20 px-6 bg-gradient-to-b from-green-50 to-white">
-            <div className="max-w-6xl mx-auto text-center">
-              <div className="mb-6">
-              </div>
-              <h2 className="text-6xl font-bold text-gray-900 mb-6">
-                PretioTech
-              </h2>
-              <br></br>
-              <br></br>
-              <br></br>
-              <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                Développement web sur mesure pour vos projets digitaux
-              </p>
-
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium transition-colors"
-              >
-                Démarrer un projet
-              </button>
-              <br>
-              </br>
-              <br>
-              </br>
-              <br>
-              </br>
-              <br>
-              </br>
-              <br>
-              </br>
-              <br>
-              </br>
-              <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-                Ici, retrouvez different projets que j'ai pue crée pour des clients
-              </p>
-              <br>
-              </br>
-              <a
-                href="index1.html"
-                class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium transition-colors"
-              >
-                Couvreur Zingeur web
-              </a>
-               <br></br>
-              <br>
-              </br>
-              <br>
-              </br>
-              <a
-                href="ecolocation.html"
-                class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-medium transition-colors"
-              >
-                Ecolocation
-              </a>
-
-            </div>
-          </section>
-
-          {/* Services */}
-          <section id="services" className="py-20 px-6 bg-white">
-            <div className="max-w-6xl mx-auto">
-              <h3 className="text-3xl font-bold text-gray-900 mb-4 text-center">Services</h3>
-              <p className="text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-                Des solutions adaptées à vos besoins
-              </p>
-
-              <div className="grid md:grid-cols-3 gap-3">
-                <div className="p-8 bg-green-50 rounded-xl hover:shadow-lg transition-shadow">
-                  <div className="w-12 h-12 bg-green-200 rounded-lg flex items-center justify-center mb-4">
-                    <Code />
-                  </div>
-                  <h4 className="text-xl font-semibold text-gray-900 mb-3">Développement Web</h4>
-                  <p className="text-gray-600">
-                    Sites vitrine, applications web, e-commerce. Développement avec les technologies modernes (React, Node.js, etc.).
-                  </p>
-                </div>
-
-                <div className="p-8 bg-green-50 rounded-xl hover:shadow-lg transition-shadow">
-                  <div className="w-12 h-12 bg-green-200 rounded-lg flex items-center justify-center mb-4">
-                    <Palette />
-                  </div>
-                  <h4 className="text-xl font-semibold text-gray-900 mb-3">Design</h4>
-                  <p className="text-gray-600">
-                    Interfaces intuitives et esthétiques, centrées sur l'expérience utilisateur et l'accessibilité.
-                  </p>
-                </div>
-
-                <div className="p-8 bg-green-50 rounded-xl hover:shadow-lg transition-shadow">
-                  <div className="w-12 h-12 bg-green-200 rounded-lg flex items-center justify-center mb-4">
-                    <Zap />
-                  </div>
-                  <h4 className="text-xl font-semibold text-gray-900 mb-3">Optimisation</h4>
-                  <p className="text-gray-600">
-                    Amélioration des performances, référencement SEO, et maintenance de vos projets existants.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-
-          {/* À propos */}
-          <section id="apropos" className="py-20 px-6 bg-green-50">
-            <div className="max-w-6xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h3 className="text-3xl font-bold text-gray-900 mb-6">À propos</h3>
-                  <p className="text-gray-600 mb-4">
-                    Développeur freelance basé à Lyon, je suis actuellement en Bachelor Informatique
-                    et je me spécialise dans la création d'applications web modernes et performantes.
-                  </p>
-                  <p className="text-gray-600 mb-6">
-                    Passionné par les nouvelles technologies et le design, je m'engage à livrer
-                    des solutions de qualité qui répondent précisément aux besoins de mes clients.
-                  </p>
-
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <GraduationCap />
-                      <div>
-                        <p className="font-medium text-gray-900">Formation</p>
-                        <p className="text-gray-600">Bachelor Informatique</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <MapPin />
-                      <div>
-                        <p className="font-medium text-gray-900">Localisation</p>
-                        <p className="text-gray-600">Lyon, France</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Briefcase />
-                      <div>
-                        <p className="font-medium text-gray-900">Statut</p>
-                        <p className="text-gray-600">Micro-entreprise</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-white p-8 rounded-xl shadow-md">
-                  <h4 className="text-xl font-semibold text-gray-900 mb-4">Compétences</h4>
-                  <div className="space-y-3">
-                    {[
-                      { name: 'React & JavaScript', level: 90 },
-                      { name: 'HTML & CSS', level: 95 },
-                      { name: 'Node.js & Backend', level: 70 },
-                      { name: 'Design', level: 95 },
-                    ].map((skill) => (
-                      <div key={skill.name}>
-                        <div className="flex justify-between mb-1">
-                          <span className="text-sm font-medium text-gray-700">{skill.name}</span>
-                          <span className="text-sm text-gray-500">{skill.level}%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div
-                            className="bg-green-600 h-2 rounded-full transition-all"
-                            style={{ width: `${skill.level}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Contact */}
-          <section id="contact" className="py-20 px-6 bg-white">
-            <div className="max-w-4xl mx-auto text-center">
-              <h3 className="text-3xl font-bold text-gray-900 mb-4">Contactez-moi</h3>
-              <p className="text-gray-600 mb-12">
-                Vous avez un projet en tête ? Discutons-en ensemble
-              </p>
-
-              <div className="bg-green-50 p-12 rounded-xl">
-                <div className="max-w-md mx-auto">
-                  <div className="mb-8">
-                    <div className="flex justify-center mb-4"><Mail /></div>
-                    <p> antoningalland89@gmail.com </p>
-                    <br></br>
-                    <p> 07 87 23 61 48 </p>
-                  </div>
-
-                  <div className="border-t border-green-200 pt-8">
-                    <p className="text-gray-600 mb-4">
-                      Réponse sous 24h • Devis gratuit • Basé à Lyon
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Footer */}
-          <footer className="bg-gray-50 py-8 px-6">
-            <div className="max-w-6xl mx-auto text-center">
-              <p className="text-2xl font-bold text-gray-800 mb-2">ΑΞΙΑ</p>
-              <p className="text-gray-600 text-sm">
-                Micro-entreprise • Développeur Freelance • Lyon, France
-              </p>
-              <p className="text-gray-500 text-sm mt-4">
-                © 2024 ΑΞΙΑ. Tous droits réservés.
-              </p>
-            </div>
-          </footer>
+    <div class="scene-container">
+        <div class="sky">
+            <div class="stars" id="stars"></div>
+            <div class="moon" onclick="goToCV()"></div>
         </div>
-      );
-    }
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<AxiaSite />);
-  </script>
+
+        <div class="building building-1" id="building1"></div>
+        <div class="building building-2" id="building2"></div>
+
+
+        <div class="road">
+            <div class="road-line"></div>
+        </div>
+
+
+        <div class="streetlight">
+            <div class="light-post"></div>
+            <div class="light-head"></div>
+            <div class="streetlight-glow"></div>
+        </div>
+
+
+        <div class="bus-stop">
+            <div class="bus-shelter">
+                <div class="shelter-roof"></div>
+                <div class="shelter-pole"></div>
+                <div class="shelter-pole shelter-pole-2"></div>
+                <div class="shelter-back"></div>
+                <div class="bus-poster" onclick="goToPresentation()">
+                    A PROPOS<br>DE<br>MOI
+                </div>
+            </div>
+        </div>
+
+
+        <div class="door-container" onclick="goToPortfolio()">
+            <div class="door-light"></div>
+            <div class="light-beam"></div>
+            <div class="door-frame">
+                <div class="door">
+                    <span class="door-text">PORTE-<br>FOLIO</span>
+                    <div class="door-knob"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="welcome-text">BIENVENUE</div>
+    </div>
+
+    <div class="signature">Antonin Galland</div>
+
+
+    <div id="presentationModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closePresentation()">&times;</span>
+
+            <h2>BIENVENUE</h2>
+
+            <div class="modal-section">
+                <h3>Qui suis-je ?</h3>
+                <p>
+                    Bonjour ! Je suis Antonin Galland , j'ai 19 ans et je suis actuellement etudiant en premiere année
+                    de bachelor a EPITECH Lyon.
+                    Je suis un développeur passionné par la création d'expériences web uniques et innovantes.
+                </p>
+                <br>
+                <br>
+                <p>
+                    Alors Bienvenue sur mon portfolio interactif !
+                    N'hesitez pas a cliquer partout pour se balader.
+                    Bonne balade ...
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+
+        function createWindows(buildingId, rows, cols) {
+            const building = document.getElementById(buildingId);
+            const buildingWidth = building.offsetWidth;
+            const buildingHeight = building.offsetHeight;
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const window = document.createElement('div');
+                    window.className = 'window';
+                    window.style.left = (col * (buildingWidth / (cols + 1))) + 20 + 'px';
+                    window.style.top = (row * (buildingHeight / (rows + 1))) + 30 + 'px';
+                    window.style.animationDelay = Math.random() * 5 + 's';
+
+                    if (Math.random() > 0.7) {
+                        window.style.opacity = '0.1';
+                    }
+                    building.appendChild(window);
+                }
+            }
+        }
+
+        createWindows('building1', 6, 4);
+        createWindows('building2', 8, 5);
+
+
+        function goToPresentation() {
+            document.getElementById('presentationModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+
+        function closePresentation() {
+            document.getElementById('presentationModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+
+        function goToPortfolio() {
+            const doorContainer = document.querySelector('.door-container');
+            doorContainer.classList.add('door-open');
+
+
+            setTimeout(() => {
+                window.location.href = 'portfolio.html';
+            }, 800);
+        }
+
+
+        function goToCV() {
+            window.location.href = 'cv.html';
+        }
+
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('presentationModal');
+            if (event.target === modal) {
+                closePresentation();
+            }
+        }
+
+
+        const poster = document.querySelector('.bus-poster');
+
+        poster.addEventListener('mouseenter', function () {
+            this.style.animation = 'none';
+            setTimeout(() => {
+                this.style.animation = 'posterPulse 0.5s infinite ease-in-out';
+            }, 10);
+        });
+    </script>
 </body>
 
 </html>

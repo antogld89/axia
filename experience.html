@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expériences - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: #0a0a15;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #0a0a15 0%, #1a1a35 50%, #0a0a15 100%);
+            z-index: -2;
+        }
+
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+
+        /* ── Étoiles (fond parcours) ── */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00ffff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+            box-shadow: 0 0 4px #00ffff;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        header {
+            padding: 40px 60px;
+            position: relative;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 3s ease infinite;
+            letter-spacing: 8px;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .header-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: #ff00ff;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .experience-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 60px 120px;
+        }
+
+        .main-timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline-axis {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, 
+                #00ffff 0%,
+                #ff00ff 50%,
+                #00ffff 100%);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+            transform: translateX(-50%);
+        }
+
+        .timeline-entry {
+            position: relative;
+            margin-bottom: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-entry:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-entry:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: #00ffff;
+            border-radius: 50%;
+            border: 4px solid #0a0a15;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 1),
+                        0 0 50px rgba(0, 255, 255, 0.5);
+            z-index: 10;
+            animation: markerPulse 2s infinite;
+        }
+
+        @keyframes markerPulse {
+            0%, 100% { 
+                transform: translateX(-50%) scale(1);
+                box-shadow: 0 0 30px rgba(0, 255, 255, 1),
+                            0 0 50px rgba(0, 255, 255, 0.5);
+            }
+            50% { 
+                transform: translateX(-50%) scale(1.3);
+                box-shadow: 0 0 50px rgba(0, 255, 255, 1),
+                            0 0 80px rgba(0, 255, 255, 0.8);
+            }
+        }
+
+        .timeline-connector {
+            width: calc(50% - 40px);
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(0, 255, 255, 0.5));
+            position: relative;
+        }
+
+        .timeline-entry:nth-child(even) .timeline-connector {
+            background: linear-gradient(to left, transparent, rgba(0, 255, 255, 0.5));
+        }
+
+        .experience-card {
+            width: calc(50% - 40px);
+            background: rgba(26, 26, 46, 0.7);
+            border: 2px solid rgba(0, 255, 255, 0.4);
+            border-radius: 20px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+            transition: all 0.5s ease;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%,
+                rgba(0, 255, 255, 0.1) 50%,
+                transparent 70%);
+            animation: cardShine 6s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes cardShine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .experience-card:hover {
+            transform: scale(1.05);
+            border-color: rgba(0, 255, 255, 0.8);
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.4);
+        }
+
+        .experience-type {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            border-radius: 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #0a0a15;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+        }
+
+        .experience-date {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            color: #ff00ff;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+        }
+
+        .experience-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: #00ffff;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+        }
+
+        .experience-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            color: #ff00ff;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .experience-description {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+
+        .experience-highlights {
+            margin-top: 20px;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .highlight-item::before {
+            content: '▹';
+            color: #00ffff;
+            font-size: 20px;
+            margin-right: 12px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .tech-badge {
+            font-size: 11px;
+            padding: 6px 14px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            border-radius: 20px;
+            color: #00ffff;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: rgba(0, 255, 255, 0.7);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .back-button {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            padding: 18px 45px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #0a0a15;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+            transition: all 0.3s ease;
+            z-index: 100;
+            text-decoration: none;
+            letter-spacing: 3px;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(255, 0, 255, 0.8);
+        }
+
+        .scan-line {
+            position: fixed;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(0, 255, 255, 0.6), transparent);
+            animation: scan 4s linear infinite;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        @media (max-width: 1024px) {
+            .timeline-axis {
+                left: 30px;
+            }
+
+            .timeline-entry {
+                flex-direction: row !important;
+                padding-left: 80px;
+            }
+
+            .timeline-marker {
+                left: 30px;
+            }
+
+            .timeline-connector {
+                display: none;
+            }
+
+            .experience-card {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 40px;
+            }
+
+            .experience-container {
+                padding: 40px 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-container"></div>
+    <div class="grid-background"></div>
+    <div class="stars" id="stars"></div>
+    <div class="scan-line"></div>
+
+    <header>
+        <h1 class="header-title">EXPÉRIENCES</h1>
+        <p class="header-subtitle">PROFESSIONAL JOURNEY // CAREER PATH</p>
+    </header>
+
+    <div class="experience-container">
+
+        <div class="main-timeline">
+            <div class="timeline-axis"></div>
+
+            <div class="timeline-entry">
+                <div class="experience-card">
+                    <div class="experience-type">FORMATION</div>
+                    <h3 class="experience-title">Bachelor Informatique</h3>
+                    <div class="experience-subtitle">EPITECH Lyon</div>
+                    <p class="experience-description">
+                        Formation intensive en développement informatique axée sur la pratique et l'innovation. 
+                        Apprentissage par projets, méthodologies agiles et travail collaboratif.
+                    </p>
+                    <div class="experience-highlights">
+                        <div class="highlight-item">Projets de groupe en méthodologie Agile</div>
+                        <div class="highlight-item">Développement d'applications complètes de A à Z</div>
+                        <div class="highlight-item">Participation à des hackathons et challenges techniques</div>
+                        <div class="highlight-item">Apprentissage autonome et résolution de problèmes</div>
+                    </div>
+                </div>
+                <div class="timeline-connector"></div>
+                <div class="timeline-marker"></div>
+            </div>
+
+            <div class="timeline-entry">
+                <div class="experience-card">
+                    <div class="experience-type">PROJET PERSONNEL</div>
+                    <h3 class="experience-title">Portfolio Interactif</h3>
+                    <div class="experience-subtitle">Développement Web</div>
+                    <p class="experience-description">
+                        Création d'un portfolio immersif avec design unique, 
+                        intégrant animations avancées et interactions innovantes.
+                    </p>
+                    <div class="experience-highlights">
+                        <div class="highlight-item">Design créatif et original</div>
+                        <div class="highlight-item">Animations CSS complexes et effets visuels</div>
+                        <div class="highlight-item">Navigation interactive et expérience utilisateur fluide</div>
+                        <div class="highlight-item">Responsive design pour tous les écrans</div>
+                    </div>
+                </div>
+                <div class="timeline-connector"></div>
+                <div class="timeline-marker"></div>
+            </div>
+
+            <div class="timeline-entry">
+                <div class="experience-card">
+                    <div class="experience-type">CYBER-SECURITÉ</div>
+                    <h3 class="experience-title">Apprentissage a la cyber-securité</h3>
+                    <div class="experience-subtitle">Apprentissage par Juice Shop</div>
+                    <p class="experience-description">
+                        Apprentissage de la Cyber-Securité grace a la plateforme OWASP Juice Shop,
+                        identification et exploitation de vulnérabilités dans un environnement sécurisé.
+                        Notre tache était de découvrir et d'exploiter diverses failles de sécurité présentes dans l'application web Juice Shop.
+                    </p>
+                    <div class="experience-highlights">
+                        <div class="highlight-item">Apprentissage des bases de la cyber-sécurité</div>
+                        <div class="highlight-item">Identification des vulnérabilités courantes</div>
+                    </div>
+                </div>
+                <div class="timeline-connector"></div>
+                <div class="timeline-marker"></div>
+            </div>
+
+            <div class="timeline-entry">
+                <div class="experience-card">
+                    <div class="experience-type">Programation</div>
+                    <h3 class="experience-title">Apprentissage au code</h3>
+                    <div class="experience-subtitle">Initiation a de nombreux Langages</div>
+                    <p class="experience-description">
+                        Découverte de la programmation et passion immédiate pour la création numérique. 
+                        Grace a mon apprentissage a Epitech j'ai pu découvrir de nombreux langages de programmation, comme JavaScript, le HTML et le CSS...
+                    </p>
+                    <div class="experience-highlights">
+                        <div class="highlight-item">Introduction aux concepts de base de la programmation</div>
+                        <div class="highlight-item">Création de premiers programmes</div>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">HTML</span>
+                        <span class="tech-badge">CSS</span>
+                        <span class="tech-badge">SQL</span>
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">PHP</span>
+                    </div>
+                </div>
+                <div class="timeline-connector"></div>
+                <div class="timeline-marker"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <a href="portfolio.html" class="back-button">← RETOUR</a>
+
+    <script>
+        /* Étoiles identiques à la page parcours */
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        /* Apparition progressive des cartes */
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 150);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
+
+        document.querySelectorAll('.experience-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
