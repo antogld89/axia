@@ -50,7 +50,6 @@
             100% { background-position: 50px 50px; }
         }
 
-        /* ── Étoiles (fond parcours) ── */
         .stars {
             position: fixed;
             width: 100%;
@@ -509,7 +508,6 @@
     <a href="portfolio.html" class="back-button">← RETOUR</a>
 
     <script>
-        /* Étoiles identiques à la page parcours */
         const starsContainer = document.getElementById('stars');
         for (let i = 0; i < 100; i++) {
             const star = document.createElement('div');
@@ -520,7 +518,6 @@
             starsContainer.appendChild(star);
         }
 
-        /* Apparition progressive des cartes */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
